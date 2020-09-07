@@ -8,52 +8,42 @@
     ?>
 <link rel="stylesheet" href="style.css">
 <form method="post">
-            <?php foreach($masyvas as $elementai => $select):?>
-                <?php if($elementai == 'skrydzionr'):?>
-                    <label for="skrydzionr">Skrydzio Nr</label>
-                        <select name="skrydzionr" id="skrydzionr" required>
-                            <option disabled selected>--Pasirinkite Skrydzio Nr--</option>
-                                <?php for($i=0; $i<count($select); $i++):?>
-                                    <option value=<?=$select[$i]?>> 
-                                        <?=$select[$i]?>
-                                    </option>
-                                <?php endfor?>
-                        </select>   
-                <?php endif?>
-                <?php if($elementai == 'iskur'):?>
-                    <label for="iskur">Is Kur Skrendate</label>
-                        <select name="iskur" id="iskur" required>
-                            <option disabled selected>--Is Kur Skrisite?--</option>
-                                    <?php for($i=0; $i<count($select); $i++):?>
-                                    <option value=<?=$select[$i]?>> 
-                                        <?=$select[$i]?>
-                                    </option>
-                        <?php endfor?>
-                    </select>   
-                <?php endif?>
-                <?php if($elementai == 'ikur'):?>
-                    <label for="ikur">I Kur Skrendate</label>
-                        <select name="ikur" id="ikur" required>
-                            <option disabled selected>--I Kur Skrisite?--</option>
-                                    <?php for($i=0; $i<count($select); $i++):?>
-                                    <option value=<?=$select[$i]?>> 
-                                        <?=$select[$i]?>
-                                    </option>
-                        <?php endfor?>
-                    </select>   
-                <?php endif?>
-                <?php if($elementai == 'bagazas'):?>
-                    <label for="bagazas">Bagazo Dydis</label>
-                        <select name="svoris" id="bagazas" required>
-                            <option disabled selected>--Pasirinkite Bagaza--</option>
-                                    <?php for($i=0; $i<count($select); $i++):?>
-                                    <option value=<?=$select[$i]?>> 
-                                    <?=$select[$i]?>
-                                    </option>
-                        <?php endfor?>
-                        </select>   
-                <?php endif?>
-            <?php endforeach?>
+    <label for="skrydzionr">Skrydzio Nr</label>
+        <select name="skrydzionr" id="skrydzionr" required>
+            <option disabled selected>--Pasirinkite Skrydzio Nr--</option>
+                <?php foreach($masyvas['skrydzionr'] as $skrydis):?>
+                    <?php:?> <option value=<?=$skrydis?>> 
+                        <?=$skrydis?>
+                <?php endforeach?>
+            </option> 
+        </select>   
+            <label for="iskur">Is Kur Skrendate</label>
+            <select name="iskur" id="iskur" required>
+                <option disabled selected>--Is Kur Skrisite?--</option>
+                <?php foreach($masyvas['iskur'] as $iskurskris):?>
+                                        <option value=<?=$iskurskris?>> 
+                                            <?=$iskurskris?>
+                                        </option>
+                <?php endforeach?>
+        </select>   
+        <label for="ikur">I Kur Skrendate</label>
+            <select name="ikur" id="ikur" required>
+                <option disabled selected>--Is Kur Skrisite?--</option>
+                <?php foreach($masyvas['ikur'] as $ikurskris):?>
+                                        <option value=<?=$ikurskris?>> 
+                                            <?=$ikurskris?>
+                                        </option>
+                <?php endforeach?>
+        </select>   
+        <label for="bagazas">Bagazo Dydis</label>
+        <select name="svoris" id="bagazas" required>
+            <option disabled selected>--Pasirinkite Bagaza--</option>
+                <?php foreach($masyvas['bagazas'] as $bagazas):?>
+                                        <option value=<?=$bagazas?>> 
+                                            <?=$bagazas?>
+                                        </option>
+                <?php endforeach?>
+        </select>   
 <!-- --------------------------kitka-------------------------- -->
     <label for="kodas">Asmens Kodas</label>
         <input type="number" name="kodas" placeholder="Asmens Kodas" required>
