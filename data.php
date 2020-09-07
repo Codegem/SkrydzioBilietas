@@ -1,5 +1,8 @@
 <?php
-$kaina = 60; 
+$date = date("Y-m-d");
+$galiojimas = strtotime($date."+ 7 days");
+$kaina = 60;
+$bagazas = 30;
 $masyvas = [
     'skrydzionr' => [1, 2, 3, 4, 5],
     'iskur' => ['Kaunas', 'Vilnius', 'Klaipeda', 'Talinas'],
