@@ -1,27 +1,45 @@
 <?php
-
-// require 'bilietas.php';
-$errormsg = "";
+$err = false;
+$errormsg = [];
     if(isset($_POST['rezervuoti'])){
-        if (empty($_POST['vardas']) || (!preg_match("[a-zA-Z]",$_POST['vardas']))) {
-            $errormsg = "Neivestas";
+        if (empty($_POST['skrydzionr'])) {
+            $errormsg []= "Skrydzio nr negali buti tuscias";
         }
-        else {
-        $errormsg =$_POST['vardas'];
+        if (empty($_POST['svoris'])) {
+            $errormsg []= "Pasirinkite bagaza";
         }
-    var_dump($errormsg);
-    die;
+        if (!preg_match('[^\d]', $_POST['kodas'])) {
+            $errormsg []= "Pasirinkite bagaza";
+        }
+        if (!preg_match('/^[a-z ]+$/i',$_POST['vardas'])) {
+            $errormsg []= "Vardas netinka";
+        }
+        if (!preg_match('/^[a-z ]+$/i',$_POST['pavarde'])) {
+            $errormsg []= "Pavarde netinka";
+        }
+        if (empty($errormsg)) {
+            require 'bilietas.php';
+        }else {
+            $err = true;
+        }
     }
-    else{
+    else {
     ?>
 <link rel="stylesheet" href="style.css">
+<ul>
+<?php if($err == true):?>
+    <?php foreach ($errormsg as $error):?>
+        <li><?=$error?></li>  
+    <?php endforeach?>
+ <?php endif?>
+ </ul>
 <form method="post">
     <label for="skrydzionr">Skrydzio Nr</label>
         <select name="skrydzionr" id="skrydzionr">
             <span class="error"><?=$vardasErr?></span>
             <option disabled selected>--Pasirinkite Skrydzio Nr--</option>
                 <?php foreach($masyvas['skrydzionr'] as $skrydis):?>
-                    <?php:?> <option value=<?=$skrydis?>> 
+                    <option value=<?=$skrydis?>> 
                         <?=$skrydis?>
                 <?php endforeach?>
             </option> 
@@ -59,7 +77,6 @@ $errormsg = "";
         <input type="number" name="kodas" placeholder="Asmens Kodas" >
     <label for="vardas_pavarde">Vardas, Pavarde</label>
         <input type="text" name="vardas" placeholder="Vardas">
-        <span><?=$errormsg?></span>
         <input type="text" name="pavarde" placeholder="Pavarde">
     <label for="pastabos">Pastabos</label>
         <textarea name="pastabos" id="pastabos" cols="65" rows="10" placeholder="Jusu Pastabos.."></textarea>
