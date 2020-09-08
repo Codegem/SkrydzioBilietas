@@ -1,15 +1,24 @@
 <?php
+
+// require 'bilietas.php';
+$errormsg = "";
     if(isset($_POST['rezervuoti'])){
-        require 'bilietas.php';
-        ?>
-       <?php 
+        if (empty($_POST['vardas']) || (!preg_match("[a-zA-Z]",$_POST['vardas']))) {
+            $errormsg = "Neivestas";
+        }
+        else {
+        $errormsg =$_POST['vardas'];
+        }
+    var_dump($errormsg);
+    die;
     }
     else{
     ?>
 <link rel="stylesheet" href="style.css">
 <form method="post">
     <label for="skrydzionr">Skrydzio Nr</label>
-        <select name="skrydzionr" id="skrydzionr" required>
+        <select name="skrydzionr" id="skrydzionr">
+            <span class="error"><?=$vardasErr?></span>
             <option disabled selected>--Pasirinkite Skrydzio Nr--</option>
                 <?php foreach($masyvas['skrydzionr'] as $skrydis):?>
                     <?php:?> <option value=<?=$skrydis?>> 
@@ -18,7 +27,8 @@
             </option> 
         </select>   
             <label for="iskur">Is Kur Skrendate</label>
-            <select name="iskur" id="iskur" required>
+            <select name="iskur" id="iskur">
+                <span class="error"><?=$pavardeErr?></span>
                 <option disabled selected>--Is Kur Skrisite?--</option>
                 <?php foreach($masyvas['iskur'] as $iskurskris):?>
                                         <option value=<?=$iskurskris?>> 
@@ -27,7 +37,7 @@
                 <?php endforeach?>
         </select>   
         <label for="ikur">I Kur Skrendate</label>
-            <select name="ikur" id="ikur" required>
+            <select name="ikur" id="ikur">
                 <option disabled selected>--Is Kur Skrisite?--</option>
                 <?php foreach($masyvas['ikur'] as $ikurskris):?>
                                         <option value=<?=$ikurskris?>> 
@@ -36,7 +46,7 @@
                 <?php endforeach?>
         </select>   
         <label for="bagazas">Bagazo Dydis</label>
-        <select name="svoris" id="bagazas" required>
+        <select name="svoris" id="bagazas">
             <option disabled selected>--Pasirinkite Bagaza--</option>
                 <?php foreach($masyvas['bagazas'] as $bagazas):?>
                                         <option value=<?=$bagazas?>> 
@@ -46,10 +56,11 @@
         </select>   
 <!-- --------------------------kitka-------------------------- -->
     <label for="kodas">Asmens Kodas</label>
-        <input type="number" name="kodas" placeholder="Asmens Kodas" required>
+        <input type="number" name="kodas" placeholder="Asmens Kodas" >
     <label for="vardas_pavarde">Vardas, Pavarde</label>
-        <input type="text" name="vardas" placeholder="Vardas" required>
-        <input type="text" name="pavarde" placeholder="Pavarde" required>
+        <input type="text" name="vardas" placeholder="Vardas">
+        <span><?=$errormsg?></span>
+        <input type="text" name="pavarde" placeholder="Pavarde">
     <label for="pastabos">Pastabos</label>
         <textarea name="pastabos" id="pastabos" cols="65" rows="10" placeholder="Jusu Pastabos.."></textarea>
     <button name="rezervuoti" type="submit">Rezervuoti</button>
